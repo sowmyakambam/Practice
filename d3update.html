@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Line Chart</title>
+
+</head>
+<body>
+
+<script src="http://d3js.org/d3.v3.js"></script>
+<p>Click to Update</p>
+<script>
+var data = [120, 140, 150, 180]  // define width is array
+
+var svg=d3.select("body")
+			.append("svg")
+			.attr("width",250)
+			.attr("height",250)
+			.style("background","grey")
+
+
+var chart = d3.select('svg')     // select svg
+  .selectAll('rect')
+  .data(data).enter()
+  .append('rect')
+  .attr('x', 0)
+  .attr('y', function(d,i) {return i * 30})
+  .attr('width', function(d) {return d})
+  .attr('height', 25)
+
+d3.select('svg').selectAll("text")
+  .data(data)
+  .enter()
+  .append("text")
+  .text(function(d) {return d})
+  .attr("y", function(d,i) {return i*30 + 15})
+  .attr("x", function(d) {return d - 20})
+  .attr("font-family", "sans-serif")
+  .attr("font-size", "10px")
+  .attr("fill", "white")
+
+d3.select("svg")
+  .on("click", function() {  // Event listener - later about that!
+    // create random data
+    data = [50,70,100,60]         // Custom function, we can write your own!
+    // update rect widths with enw data
+    d3.select('svg')
+      .selectAll("rect")     // select rects to be updated
+      .data(data)            // New data binded to rects
+      .attr('width', function(d) {return d}) // visual attribute to be updated
+
+	d3.select("svg")
+  	  .selectAll("text")     // select text tags to be updated
+  	  .data(data)            // New data binded to elements
+  	  .attr('x', function(d) {return d-20}) // placed at new positions
+      .text(function(d) {return d}) 
+              // value updated
+})
+
+
+</script>
+</body>
+</html>
