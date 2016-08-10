@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Line Chart</title>
+
+</head>
+<body>
+
+<script src="http://d3js.org/d3.v3.js"></script>
+<p>Click to Update</p>
+<script>
+
+var dataset
+
+d3.csv("countries.csv", function(data) {
+  dataset = data
+  
+  print1()
+})
+
+function print1() {
+  console.log(dataset)
+}
+
+var svg = d3.select("body")
+              .append("svg")
+              .attr("width", 250)
+              .attr("height", 250)
+              .attr("border",2)
+
+    var borderPath = svg.append("rect")
+       			.attr("x", 0)
+       			.attr("y", 0)
+       			.attr("height", 250)
+       			.attr("width", 250)
+       			.style("stroke", "black")
+       			.style("fill", "none")
+       			.style("stroke-width", 5);
+
+d3.csv("countries.csv", function(data) {
+  svg.selectAll("circle")
+     .data(data).enter()
+     .append("circle")
+     .attr("cx", function(d) {return d.gold})
+     .attr("cy", function(d) {return d.silver})
+     .attr("r", 4)
+})
+
+
+</script>
+</body>
+</html>
